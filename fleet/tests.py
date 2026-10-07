@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 from django.db import DatabaseError
-from django.test import TestCase
+from django.test import Client, TestCase
 
 from .models import Car
 
@@ -32,5 +32,6 @@ class FoundationTests(TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertNotContains(response, "Traceback", status_code=404)
 
-    def test_health_does_not_accept_post(self):
+    def test_health_rejects_post_with_csrf_check_and_at_handler(self):
+        self.assertEqual(Client(enforce_csrf_checks=True).post("/health/").status_code, 403)
         self.assertEqual(self.client.post("/health/").status_code, 405)
