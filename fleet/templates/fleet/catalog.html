@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DrivePoint — каталог автомобилей</title>
+</head>
+<body>
+  <h1>DrivePoint</h1>
+  <p>Учебный сервис проката автомобилей.</p>
+  <h2>Каталог</h2>
+  <ul>
+    {% for car in cars %}
+      <li>{{ car.inventory_code }} — {{ car.name }}</li>
+    {% empty %}
+      <li>Каталог пока пуст.</li>
+    {% endfor %}
+  </ul>
+  <p>Бронирования и аренды находятся в разработке.</p>
+</body>
+</html>
